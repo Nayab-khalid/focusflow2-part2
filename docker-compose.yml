@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nayabkhalid
+    ports:
+      - "3000:3000"
+    environment:
+      # This overrides the Atlas URI in your .env.local to point to the local MongoDB container
+      - MONGODB_URI=mongodb://db:27017/focusflow
+      - NODE_ENV=production
+    depends_on:
+      - db
+    restart: always
+
+  db:
+    image: mongo:latest
+    ports:
+      - "27017:27017" # Exposes port so you can check it locally with MongoDB Compass
+    volumes:
+      # This named volume ensures database data remains persistent
+      - db_data:/data/db
+    restart: always
+
+volumes:
+  # Connects the persistence volume to the host
+  db_data:
