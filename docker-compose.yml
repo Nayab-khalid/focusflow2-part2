@@ -9,7 +9,6 @@ services:
     ports:
       - "3000:3000"
     environment:
-      # This overrides the Atlas URI in your .env.local to point to the local MongoDB container
       - MONGODB_URI=mongodb://db:27017/focusflow
       - NODE_ENV=production
     depends_on:
