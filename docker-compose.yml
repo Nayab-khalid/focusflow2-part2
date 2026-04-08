@@ -20,7 +20,6 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      # This named volume ensures database data remains persistent
       - db_data:/data/db
     restart: always
 
