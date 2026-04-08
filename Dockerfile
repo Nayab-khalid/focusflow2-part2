@@ -12,7 +12,6 @@ RUN npm ci
 # Copy the rest of the application files
 COPY . .
 
-# Set environment variable to disable telemetry (optional but good practice)
 ENV NEXT_TELEMETRY_DISABLED 1
 
 # Build the Next.js app
