@@ -18,7 +18,6 @@ ENV NEXT_TELEMETRY_DISABLED 1
 # Build the Next.js app
 RUN npm run build
 
-# Expose port 3000 where Next.js runs
 EXPOSE 3000
 
 # Command to run the Next.js app
