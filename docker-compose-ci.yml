@@ -1,15 +1,16 @@
 version: '3.8'
 
 services:
-  app:
+  focusflow-app:
     image: node:20-alpine
     container_name: focusflow2-ci
     working_dir: /app
     volumes:
-      - .:/app
+      - .:/app 
     ports:
-      - "4000:3000"
-    command: sh -c "npm install && npm run dev"
+      - "4000:3000" 
     environment:
       - MONGODB_URI=mongodb+srv://nayabkhalid13:sprinkles2017@focusflow.rqb31jj.mongodb.net/focusflow?retryWrites=true&w=majority&appName=FocusFlow
-      - NODE_ENV=production
+      - NODE_ENV=development 
+    command: >
+      sh -c "npm install @tailwindcss/postcss postcss && npm install && npm run dev -- -p 3000"
