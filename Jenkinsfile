@@ -2,6 +2,13 @@ pipeline {
     agent any
 
     stages {
+        stage('Stop and Clean') {
+            steps {
+                sh 'docker-compose -f docker-compose-ci.yml down || true'
+                
+                cleanWs()
+            }
+        }
 
         stage('Clone Code') {
             steps {
@@ -11,10 +18,7 @@ pipeline {
 
         stage('Run CI Container') {
             steps {
-                sh '''
-                docker-compose -f docker-compose-ci.yml down || true
-                docker-compose -f docker-compose-ci.yml up -d
-                '''
+                sh 'docker-compose -f docker-compose-ci.yml up -d --build'
             }
         }
 
@@ -23,6 +27,11 @@ pipeline {
                 sh 'docker ps'
             }
         }
+    }
 
+    post {
+        success {
+            echo 'SUCCESS: Website is live at http://16.16.205.105:4000'
+        }
     }
 }
