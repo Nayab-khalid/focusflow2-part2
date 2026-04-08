@@ -18,7 +18,7 @@ services:
   db:
     image: mongo:latest
     ports:
-      - "27017:27017" # Exposes port so you can check it locally with MongoDB Compass
+      - "27017:27017"
     volumes:
       # This named volume ensures database data remains persistent
       - db_data:/data/db
