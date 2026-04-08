@@ -24,5 +24,4 @@ services:
     restart: always
 
 volumes:
-  # Connects the persistence volume to the host
   db_data:
