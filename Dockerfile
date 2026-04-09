@@ -9,7 +9,7 @@ RUN npm ci
 COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED 1
-
+#build
 RUN npm run build
 
 EXPOSE 3000
