@@ -8,6 +8,7 @@ export default function Login() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
 
@@ -18,6 +19,8 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (loading) return;
+    setLoading(true);
 
     try {
       const response = await fetch('/api/login', {
@@ -29,7 +32,8 @@ export default function Login() {
       const data = await response.json();
 
       if (!response.ok) {
-        alert(data.error || 'Login failed.');
+        alert(data.message || 'Login failed.');
+        setLoading(false);
         return;
       }
 
@@ -70,7 +74,13 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="submit" className="w-full bg-pink-500 text-white py-3 rounded-full font-semibold hover:bg-pink-700 transition">Login</button>
+          <button
+            type="submit"
+            disabled={loading}
+            className={`w-full p-3 text-white rounded-full font-bold text-base transition ${loading ? 'bg-gray-400' : 'bg-pink-500 hover:bg-pink-600'}`}
+          >
+            {loading ? 'Logging in...' : 'Login'}
+          </button>
         </form>
         <p className="text-center mt-4 text-sm text-gray-600">
           Don&apos;t have an account? <Link href="/signup" className="text-blue-500 hover:underline">Sign Up</Link>

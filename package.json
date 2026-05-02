@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "selenium": "powershell -Command \"Invoke-WebRequest -Uri http://localhost:3000 -UseBasicParsing | Out-Null; Invoke-WebRequest -Uri http://localhost:3000/api/signup -UseBasicParsing | Out-Null\"; npx mocha selenium_tests/test_focusflow.js"
   },
   "dependencies": {
     "autoprefixer": "^10.4.27",
@@ -16,13 +17,16 @@
     "next": "15.3.2",
     "postcss": "^8.5.9",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "selenium-webdriver": "^4.43.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4.2.2",
+    "chai": "^6.2.2",
     "eslint": "^9",
     "eslint-config-next": "15.3.2",
+    "mocha": "^11.7.5",
     "tailwindcss": "^4.2.2"
   }
 }

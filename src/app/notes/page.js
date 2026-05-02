@@ -30,13 +30,13 @@ export default function NotesPage() {
       body: JSON.stringify({ content: noteInput }),
     });
     const newNote = await res.json();
-    setNotes([newNote, ...notes]);
+    setNotes(prev => [newNote, ...prev]);
     setNoteInput('');
   };
 
   const deleteNote = async (id) => {
     await fetch(`/api/notes/${id}`, { method: 'DELETE' });
-    setNotes(notes.filter((n) => n._id !== id));
+    setNotes(prev => prev.filter((n) => n._id !== id));
   };
 
   const startEdit = (id, currentContent) => {
@@ -51,7 +51,7 @@ export default function NotesPage() {
       body: JSON.stringify({ content: editContent }),
     });
     const updated = await res.json();
-    setNotes(notes.map((n) => (n._id === editingId ? updated : n)));
+    setNotes(prev => prev.map((n) => (n._id === editingId ? updated : n)));
     setEditingId(null);
     setEditContent('');
   };
@@ -67,17 +67,19 @@ export default function NotesPage() {
         </div>
       </header>
 
-      <main className="max-w-2xl mx-auto pt-32 pb-12 px-4">
+      <main className="max-w-2xl mx-auto pt-40 pb-12 px-4">
         <h3 className="text-3xl font-bold text-purple-700 text-center mb-6">Your Notes</h3>
 
         <div className="flex flex-col gap-4 mb-8">
           <textarea
+            id="note-textarea"
             value={noteInput}
             onChange={(e) => setNoteInput(e.target.value)}
             placeholder="Write your note here..."
             className="w-full p-3 border-2 border-dashed border-pink-400 rounded-xl bg-pink-100 text-base resize-y h-32"
           />
           <button
+            id="add-note-btn"
             onClick={addNote}
             className="self-start bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-2 rounded-lg"
           >
@@ -118,15 +120,11 @@ export default function NotesPage() {
                       <button
                         onClick={() => startEdit(note._id, note.content)}
                         className="bg-yellow-400 hover:bg-yellow-500 text-white px-2 py-1 rounded-md text-sm"
-                      >
-                        Edit
-                      </button>
+                      >Edit</button>
                       <button
                         onClick={() => deleteNote(note._id)}
                         className="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded-md text-sm"
-                      >
-                        X
-                      </button>
+                      >X</button>
                     </div>
                   </div>
                 )}

@@ -52,17 +52,17 @@ export default function FeedbackPage() {
         </div>
       </header>
 
-      <main className="max-w-3xl mx-auto pt-32 pb-12 px-6">
+      <main className="max-w-2xl mx-auto pt-40 pb-12 px-4">
         <h3 className="text-3xl font-bold mb-6">We Value Your Feedback!</h3>
 
         {showSuccess && (
-          <div className="bg-green-100 text-green-800 p-4 rounded-lg mb-6 text-center animate-slide-down">🌟 Thank you for your feedback!</div>
+          <div id="feedback-success" className="bg-green-100 text-green-800 p-4 rounded-lg mb-6 text-center">🌟 Thank you for your feedback!</div>
         )}
 
         <div className="bg-white p-6 rounded-xl shadow-md mb-8">
           <h3 className="text-xl font-semibold mb-4">📝 Submit Your Feedback</h3>
           <label className="block font-medium mb-1">Your Name:</label>
-          <input value={name} onChange={(e) => setName(e.target.value)} className="w-full border rounded px-4 py-2 mb-4" placeholder="Enter your name" />
+          <input id="feedback-name" value={name} onChange={(e) => setName(e.target.value)} className="w-full border rounded px-4 py-2 mb-4" placeholder="Enter your name" />
 
           <label className="block font-medium mb-1">Your Rating:</label>
           <select value={rating} onChange={(e) => setRating(e.target.value)} className="w-full border rounded px-4 py-2 mb-4">
@@ -70,15 +70,15 @@ export default function FeedbackPage() {
           </select>
 
           <label className="block font-medium mb-1">Your Review:</label>
-          <textarea value={review} onChange={(e) => setReview(e.target.value)} className="w-full border rounded px-4 py-2 mb-4" placeholder="Write your review..." />
+          <textarea id="feedback-review" value={review} onChange={(e) => setReview(e.target.value)} className="w-full border rounded px-4 py-2 mb-4" placeholder="Write your review..." />
 
-          <button onClick={handleSubmit} className="bg-green-500 text-white py-2 px-5 rounded">Submit Feedback</button>
+          <button id="feedback-submit" onClick={handleSubmit} className="bg-green-500 text-white py-2 px-5 rounded">Submit Feedback</button>
         </div>
 
         <div className="bg-white p-6 rounded-xl shadow-md">
           <h3 className="text-xl font-semibold mb-4">🌟 User Reviews</h3>
           {reviews.map((item) => (
-            <div key={item._id} className="border-b py-4 animate-fade-in">
+            <div key={item._id} className="border-b py-4">
               <p><strong>{item.name}:</strong> {item.rating}<br />&quot;{item.review}&quot;</p>
             </div>
           ))}

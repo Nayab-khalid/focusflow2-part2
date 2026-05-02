@@ -25,6 +25,16 @@ pipeline {
         stage('Verify Running') {
             steps {
                 sh 'docker ps'
+                sh 'sleep 10' // Give the app some time to start
+            }
+        }
+
+        stage('Run Selenium Tests') {
+            steps {
+                sh '''
+                export BASE_URL=http://localhost:4000
+                npm run selenium
+                '''
             }
         }
     }

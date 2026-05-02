@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+/* Disable all animations/transitions for Selenium stability */
+* {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;

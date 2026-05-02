@@ -3,6 +3,15 @@ import bcrypt from 'bcryptjs';
 import User from '@/models/user';
 import dbConnect from '@/lib/db';
 
+export async function GET(req) {
+  try {
+    await dbConnect();
+    return NextResponse.json({ message: 'Warmup successful' });
+  } catch (error) {
+    return NextResponse.json({ message: 'Warmup failed', error: error.message }, { status: 500 });
+  }
+}
+
 export async function POST(req) {
   try {
     await dbConnect();

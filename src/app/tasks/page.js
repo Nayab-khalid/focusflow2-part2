@@ -28,21 +28,23 @@ export default function TaskPage() {
 
     const res = await fetch("/api/tasks", {
       method: "POST",
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text: newTask }),
     });
 
     const data = await res.json();
-    setTasks([data, ...tasks]);
+    setTasks(prev => [data, ...prev]);
     setNewTask("");
   };
 
   const deleteTask = async (id) => {
     await fetch("/api/tasks", {
       method: "DELETE",
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id }),
     });
 
-    setTasks(tasks.filter((task) => task._id !== id));
+    setTasks(prev => prev.filter((task) => task._id !== id));
   };
 
   const handleKeyDown = (e) => {
@@ -68,12 +70,13 @@ export default function TaskPage() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-3xl mx-auto pt-24 px-6">
+      <main className="max-w-3xl mx-auto pt-32 px-6">
         <h3 className="text-3xl font-bold mb-6">Your Tasks</h3>
 
         {/* Add Task */}
         <div className="flex gap-4 mb-6">
           <input
+            id="task-input"
             type="text"
             placeholder="Enter your task..."
             className="flex-1 px-4 py-3 rounded-lg border border-gray-500 bg-white text-black font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-400 transition"
@@ -82,6 +85,7 @@ export default function TaskPage() {
             onKeyDown={handleKeyDown}
           />
           <button
+            id="add-task-btn"
             onClick={addTask}
             className="bg-green-500 hover:bg-green-600 text-white px-5 py-3 rounded-lg transition"
           >
@@ -94,37 +98,18 @@ export default function TaskPage() {
           {tasks.map((task, idx) => (
             <div
               key={task._id}
-              className="bg-white px-6 py-4 rounded-lg shadow flex justify-between items-center animate-fade-in"
-              style={{ animationDelay: `${idx * 0.05}s`, animationFillMode: "forwards" }}
+              className="bg-white px-6 py-4 rounded-lg shadow flex justify-between items-center"
             >
               <span>{task.text}</span>
               <button
                 onClick={() => deleteTask(task._id)}
                 className="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-md transition"
-              >
-                Delete
-              </button>
+              >Delete</button>
             </div>
           ))}
         </div>
       </main>
 
-      {/* Animation */}
-      <style jsx>{`
-        @keyframes fade-in {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-fade-in {
-          animation: fade-in 0.4s ease-out;
-        }
-      `}</style>
     </div>
   );
 }
