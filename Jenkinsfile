@@ -36,7 +36,7 @@ pipeline {
                 -w /app \
                 -e BASE_URL=http://focusflow-app:3000 \
                 markhobson/node-chrome:latest \
-                sh -c "node selenium_tests/test_focusflow.js"
+                sh -c "npx mocha selenium_tests/test_focusflow.js"
                 '''
             }
         }

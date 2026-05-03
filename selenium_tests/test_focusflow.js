@@ -1,6 +1,6 @@
 const { Builder, By, until } = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
-const { expect } = require('chai');
+let expect;
 
 const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
 
@@ -16,6 +16,8 @@ describe('FocusFlow Automated Test Suite', function () {
     };
 
     before(async function () {
+        const chai = await import('chai');
+        expect = chai.expect;
         const options = new chrome.Options();
         options.addArguments('--headless=new'); // Modern headless
         options.addArguments('--no-sandbox');
