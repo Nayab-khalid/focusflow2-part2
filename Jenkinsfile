@@ -55,7 +55,7 @@ pipeline {
         success {
             echo 'SUCCESS: All tests passed!'
 
-            mail to: 'nayab.khalid13@gmail.com',
+            mail to: 'nayab.khalid13@gmail.com , qasimalik@gmail.com',
                  subject: 'Jenkins SUCCESS: FocusFlow Tests Passed',
                  body: 'Pipeline executed successfully. All Selenium test cases passed and app is running.'
         }
