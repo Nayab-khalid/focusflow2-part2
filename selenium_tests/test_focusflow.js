@@ -219,6 +219,7 @@ describe('FocusFlow Automated Test Suite', function () {
         await driver.wait(until.elementLocated(By.id('task-input')), 30000);
         const taskText = 'Selenium Task ' + timestamp;
         await driver.findElement(By.id('task-input')).sendKeys(taskText);
+        await driver.sleep(1000); // Wait for React state to update
         await driver.findElement(By.id('add-task-btn')).click();
 
         await driver.wait(until.elementLocated(By.xpath(`//*[contains(text(), "${taskText}")]`)), 30000);
