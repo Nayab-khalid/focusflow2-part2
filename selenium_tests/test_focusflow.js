@@ -24,7 +24,7 @@ describe('FocusFlow Automated Test Suite', function () {
         options.addArguments('--disable-dev-shm-usage');
         options.addArguments('--window-size=1920,1080');
         options.addArguments('--log-level=3'); // Suppress noise
-        options.excludeSwitches('enable-logging'); // Hide internal chrome logs
+        options.excludeSwitches('enable-logging'); 
 
         driver = await new Builder()
             .forBrowser('chrome')
@@ -68,7 +68,7 @@ describe('FocusFlow Automated Test Suite', function () {
         await driver.findElement(By.id('confirm-password')).sendKeys(testUser.password);
         await driver.findElement(By.css('button[type="submit"]')).click();
 
-        // Wait for and handle the success alert
+        // Wait for and handle the success alert 
         await driver.wait(until.alertIsPresent(), 30000);
         let alert = await driver.switchTo().alert();
         await alert.accept();
