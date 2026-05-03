@@ -25,8 +25,7 @@ pipeline {
                 sh 'docker-compose -p focusflow2-part2 -f docker-compose-ci.yml up -d --build'
                 sh '''
                 echo "Waiting for Next.js to finish compiling..."
-                docker run --rm --network focusflow2-part2_default markhobson/node-chrome:latest \
-                sh -c "while ! curl -s http://focusflow-app:3000/signup > /dev/null; do echo 'Still compiling Next.js...'; sleep 5; done; echo 'Next.js is fully compiled and ready!'"
+                docker run --rm --network focusflow2-part2_default markhobson/node-chrome:latest sh -c "while ! curl -s http://focusflow-app:3000/signup > /dev/null; do echo 'Still compiling Next.js...'; sleep 5; done; echo 'Next.js is fully compiled and ready!'"
                 '''
             }
         }
