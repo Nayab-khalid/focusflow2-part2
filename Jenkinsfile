@@ -23,7 +23,7 @@ pipeline {
         stage('Start Application') {
             steps {
                 sh 'docker-compose -p focusflow2-part2 -f docker-compose-ci.yml up -d --build'
-                sh 'sleep 15'
+                sh 'sleep 30'
             }
         }
 
@@ -36,7 +36,7 @@ pipeline {
                 -w /app \
                 -e BASE_URL=http://focusflow-app:3000 \
                 markhobson/node-chrome:latest \
-                sh -c "npm install && node selenium_tests/test_focusflow.js"
+                sh -c "node selenium_tests/test_focusflow.js"
                 '''
             }
         }
