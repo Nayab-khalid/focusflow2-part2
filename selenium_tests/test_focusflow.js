@@ -68,7 +68,7 @@ describe('FocusFlow Automated Test Suite', function () {
         await driver.findElement(By.id('confirm-password')).sendKeys(testUser.password);
         await driver.findElement(By.css('button[type="submit"]')).click();
 
-        // Wait for and handle the success alert
+        // Wait for and handle the success alert 
         await driver.wait(until.alertIsPresent(), 30000);
         let alert = await driver.switchTo().alert();
         await alert.accept();
