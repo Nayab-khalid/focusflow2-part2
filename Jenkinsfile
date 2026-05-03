@@ -23,7 +23,7 @@ pipeline {
         stage('Start Application') {
             steps {
                 sh 'docker-compose -p focusflow2-part2 -f docker-compose-ci.yml up -d --build'
-                sh 'sleep 30'
+                sh 'sleep 60'
             }
         }
 
@@ -36,7 +36,7 @@ pipeline {
                 -w /app \
                 -e BASE_URL=http://focusflow-app:3000 \
                 markhobson/node-chrome:latest \
-                sh -c "npx mocha selenium_tests/test_focusflow.js"
+                npx mocha selenium_tests/test_focusflow.js
                 '''
             }
         }
@@ -52,7 +52,7 @@ pipeline {
         success {
             echo 'SUCCESS: All tests passed!'
 
-            mail to: 'nayab.khalid13@gmail.com, qasimalik@gmail.com',
+            mail to: 'nayab.khalid13@gmail.com',
                  subject: 'Jenkins SUCCESS: FocusFlow Tests Passed',
                  body: 'Pipeline executed successfully. All Selenium test cases passed and app is running.'
         }
@@ -60,7 +60,7 @@ pipeline {
         failure {
             echo 'FAILURE: Pipeline failed.'
 
-            mail to: 'nayab.khalid13@gmail.com, qasimalik@gmail.com',
+            mail to: 'nayab.khalid13@gmail.com',
                  subject: 'Jenkins FAILURE: FocusFlow Pipeline',
                  body: 'Pipeline failed. Check Jenkins console output.'
         }
