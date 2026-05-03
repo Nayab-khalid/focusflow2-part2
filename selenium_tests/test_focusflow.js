@@ -19,7 +19,7 @@ describe('FocusFlow Automated Test Suite', function () {
         const chai = await import('chai');
         expect = chai.expect;
         const options = new chrome.Options();
-        options.addArguments('--headless=new'); // Modern headless
+        options.addArguments('--headless=new'); 
         options.addArguments('--no-sandbox');
         options.addArguments('--disable-dev-shm-usage');
         options.addArguments('--window-size=1920,1080');
