@@ -23,7 +23,7 @@ describe('FocusFlow Automated Test Suite', function () {
         options.addArguments('--no-sandbox');
         options.addArguments('--disable-dev-shm-usage');
         options.addArguments('--window-size=1920,1080');
-        options.addArguments('--log-level=3'); // Suppress noise
+        options.addArguments('--log-level=3'); 
         options.excludeSwitches('enable-logging'); 
 
         driver = await new Builder()
