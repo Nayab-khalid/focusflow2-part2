@@ -9,7 +9,7 @@ pipeline {
 
         stage('Stop and Clean') {
             steps {
-                sh 'docker-compose -f docker-compose-ci.yml down || true'
+                sh 'docker-compose -p focusflow2-part2 -f docker-compose-ci.yml down || true'
                 cleanWs()
             }
         }
@@ -22,7 +22,7 @@ pipeline {
 
         stage('Start Application') {
             steps {
-                sh 'docker-compose -f docker-compose-ci.yml up -d --build'
+                sh 'docker-compose -p focusflow2-part2 -f docker-compose-ci.yml up -d --build'
                 sh 'sleep 15'
             }
         }
@@ -31,7 +31,7 @@ pipeline {
             steps {
                 sh '''
                 docker run --rm \
-                --network focusflow2-second_default \
+                --network focusflow2-part2_default \
                 -v $PWD:/app \
                 -w /app \
                 -e BASE_URL=http://focusflow-app:3000 \
