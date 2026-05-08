@@ -17,6 +17,10 @@ pipeline {
         stage('Clone Code') {
             steps {
                 git branch: 'main', url: 'https://github.com/Nayab-khalid/focusflow2-part2'
+                script {
+                    // Dynamically capture the email of the person who pushed/committed
+                    env.COMMITTER_EMAIL = sh(script: "git log -1 --pretty=format:'%ae'", returnStdout: true).trim()
+                }
             }
         }
 
@@ -55,17 +59,17 @@ pipeline {
         success {
             echo 'SUCCESS: All tests passed!'
 
-            mail to: 'nayab.khalid13@gmail.com , qasimalik@gmail.com',
-                 subject: 'Jenkins SUCCESS: FocusFlow Tests Passed',
-                 body: 'Pipeline executed successfully. All Selenium test cases passed and app is running.'
+            mail to: "${env.COMMITTER_EMAIL}",
+                 subject: "Jenkins SUCCESS: FocusFlow Tests Passed",
+                 body: "Pipeline executed successfully for your push. All Selenium test cases passed and the app is running."
         }
 
         failure {
             echo 'FAILURE: Pipeline failed.'
 
-            mail to: 'nayab.khalid13@gmail.com',
-                 subject: 'Jenkins FAILURE: FocusFlow Pipeline',
-                 body: 'Pipeline failed. Check Jenkins console output.'
+            mail to: "${env.COMMITTER_EMAIL}",
+                 subject: "Jenkins FAILURE: FocusFlow Pipeline",
+                 body: "Pipeline failed for your recent push. Check Jenkins console output for details."
         }
     }
 }
