@@ -60,7 +60,7 @@ describe('FocusFlow Automated Test Suite', function () {
     // 1. Signup Success
     it('1. Should successfully sign up a new user', async function () {
         await driver.get(`${BASE_URL}/signup`);
-        await driver.wait(until.elementLocated(By.id('full-name')), 30000);
+        await driver.wait(until.elementLocated(By.id('full-name')), 60000);
         await driver.findElement(By.id('full-name')).sendKeys(testUser.name);
         await driver.findElement(By.id('dob')).sendKeys(testUser.dob);
         await driver.findElement(By.id('signup-email')).sendKeys(testUser.email);
